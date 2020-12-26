@@ -4,22 +4,22 @@ const initialTodos = [
     {
         id: 1,
         text: '프로젝트 생성하기',
-        done: true,
+        done: true
     },
     {
         id: 2,
         text: '컴포넌트 스타일링하기',
-        done: true,
+        done: true
     },
     {
         id: 3,
         text: 'Context 만들기',
-        done: false,
+        done: false
     },
     {
         id: 4,
         text: '기능 구현하기',
-        done: false,
+        done: false
     }
 ];
 
@@ -50,13 +50,14 @@ const TodoNextIdContext = createContext();
 export function TodoProvider({children}) {
     const [state, dispatch] = useReducer(todoReducer, initialTodos);
     const nextId = useRef(5);
+
     return (
         <TodoStateContext.Provider value={state}>
-            <TodoDispatchContext value={dispatch}>
-                <TodoNextIdContext value={nestId}>
+            <TodoDispatchContext.Provider value={dispatch}>
+                <TodoNextIdContext.Provider value={nextId}>
                     {children}
-                </TodoNextIdContext>
-            </TodoDispatchContext>
+                </TodoNextIdContext.Provider>
+            </TodoDispatchContext.Provider>
         </TodoStateContext.Provider>
     );
 }
