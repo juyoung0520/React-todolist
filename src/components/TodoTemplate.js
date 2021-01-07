@@ -1,10 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
+import Card from '@material-ui/core/Card';
+import { StylesProvider } from '@material-ui/core';
 
-const TodoTemplateBlock = styled.div`
+const TodoTemplateBlock = styled(Card)`
   width: 512px;
   height: 768px;
-
+  
   position: relative; /* 추후 박스 하단에 추가 버튼을 위치시키기 위한 설정 */
   background: white;
   border-radius: 16px;
@@ -19,7 +21,11 @@ const TodoTemplateBlock = styled.div`
 `;
 
 function TodoTemplate({children}) {
-    return <TodoTemplateBlock>{children}</TodoTemplateBlock>;
+    return (
+      <StylesProvider injectFirst>
+        <TodoTemplateBlock>{children}</TodoTemplateBlock>;
+      </StylesProvider>
+    );
 }
 
 export default TodoTemplate;

@@ -2,6 +2,9 @@ import React, {useState} from 'react';
 import styled, {css} from 'styled-components';
 import {MdAdd} from 'react-icons/md';
 import { useTodoDispatch, useTodoNextId } from '../TodoContext';
+import TextField from '@material-ui/core/TextField';
+import { StylesProvider } from '@material-ui/core';
+import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
 const CircleButton = styled.div`
     background: #38d9a9;
@@ -61,15 +64,21 @@ const InsertForm = styled.form`
     border-top: 1px solid #e9ecef;
 `;
 
-const Input = styled.input`
+const theme = createMuiTheme({
+    palette: {
+        primary: {
+            main: '#20c997',
+        },
+    },
+});
+
+const Text = styled(TextField)`
     padding: 12px;
-    border-radius: 4px;
-    border: 1px solid #dee2e6;
-    width: 100%;
-    outline: none;
+    border-radius: 6px;
     font-size: 18px;
     box-sizing: border-box;
 `;
+
 function TodoCreate() {
     const [open, setOpen] = useState(false);
     const [value, setValue]= useState('');
@@ -98,12 +107,18 @@ function TodoCreate() {
         {open && (
             <InsertFormPositioner>
                 <InsertForm onSubmit={onSubmit}>
-                    <Input 
-                        placeholder="할 일을 입력 후, Enter를 누르세요." 
-                        autoFocus
-                        onChange={onChange}
-                        value={value}
-                    />
+                    <ThemeProvider theme={theme}>
+                        <StylesProvider injectFirst>
+                            <Text
+                                placeholder="할 일을 입력 후, Enter를 누르세요."
+                                autoFocus
+                                fullWidth
+                                variant="outlined"
+                                onChange={onChange}
+                                value={value}
+                            />
+                        </StylesProvider>
+                    </ThemeProvider>
                 </InsertForm>
             </InsertFormPositioner>
         )}
